@@ -4,6 +4,7 @@ import { Fragment, useState } from 'react'
 import { useTimeoutFn } from 'react-use'
 import clickCount from './ui/clickCount' 
 import inputUserName from './ui/inputUserName'
+import sendMoney from './ui/sendMoney'
 
 export default function Home() {
   let [isShowing, setIsShowing] = useState(true)
@@ -92,17 +93,10 @@ export default function Home() {
       <div>
         {inputUserName({})}
       </div>
-
-      {/* ・入力フォームで数字以外の文字を入力された瞬間、警告文が出る。
-      ＊どんな文字列でも入る。
-      ・文字数カウントを横に表示する。
-      ・20文字を超えると確認ボタンを押すと警告文が出る*/}
-      {/* 入力フォーム */}
-      {/* 決定ボタン */}
-      {/* 文字数カウント */}
-      {/* 警告文 */}
-      
-     
+      {/* 金額表示 */}
+      <div>
+        {sendMoney({})}
+      </div>
 
 
     </div>
