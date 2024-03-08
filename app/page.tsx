@@ -5,6 +5,7 @@ import { useTimeoutFn } from 'react-use'
 import clickCount from './ui/clickCount' 
 import inputUserName from './ui/inputUserName'
 import sendMoney from './ui/sendMoney'
+import formMember from './ui/formMember'
 
 export default function Home() {
   let [isShowing, setIsShowing] = useState(true)
@@ -94,12 +95,15 @@ export default function Home() {
         {inputUserName({})}
       </div>
       {/* 金額表示 */}
+      <p className='p-4'>Work1</p>
       <div>
         {sendMoney({})}
       </div>
-
-
+      <p className='p-4'>Work2</p>
+      <div>
+        {formMember({})}
+      </div>
     </div>
-    </div>
+  </div>
   )
 }

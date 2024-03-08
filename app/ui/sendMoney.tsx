@@ -34,22 +34,20 @@ export default function displayMoney(props: {}) {
             <button
             className = 'rounded bg-white h-5 w-10 text-black'
             onClick = {()=>{
-                setValueDisplayMoney(displayMoney);
-                // checkInputMoney(valueDisplayMoney);
-                //　todo:決定を２回押すと、警告文が表示される。stateの更新を図にしよう。
-                if(valueDisplayMoney!=''){
-                    if(valueDisplayMoney.length>20){
-                        if(/\d+/.test(valueDisplayMoney)!==true){
-                            setAlertMessage('20文字以内に修正してください.'+'数字のみを入力してください。')
-                        } else {
-                            setAlertMessage('20文字以内に修正してください.')
-                        }
-                    }else{
-                        if(/\d+/.test(valueDisplayMoney)!==true){
-                            setAlertMessage('数字のみを入力してください。')
-                        } else {
-                            setAlertMessage('')
-                        }
+                // complete:決定を２回押すと、警告文が表示される。stateの更新を図にしよう
+                // complete:文字数カウントをリアルタイムで表示する
+                // complete:条件分岐
+                if(displayMoney.length>20){
+                    if(/\d+/.test(displayMoney)!==true){
+                        setAlertMessage('20文字以内に修正してください.'+'数字のみを入力してください。')
+                    } else {
+                        setAlertMessage('20文字以内に修正してください.')
+                    }
+                }else{
+                    if(/\d+/.test(displayMoney)!==true){
+                        setAlertMessage('数字のみを入力してください。')
+                    } else {
+                        setAlertMessage('')
                     }
                 }
             }}
@@ -58,7 +56,7 @@ export default function displayMoney(props: {}) {
             </button>
             {/* 文字数カウント */}
             <div>
-                {valueDisplayMoney.length}/20
+                {displayMoney.length}/20
             </div>
             {/* 警告文 */}
             <div className='text-red h'>

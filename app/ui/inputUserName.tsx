@@ -33,7 +33,6 @@ export default function InputUserName(props: {}) {
             >
             reset
             </button>
-
         </div>
     )
 }
