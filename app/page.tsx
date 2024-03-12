@@ -6,14 +6,67 @@ import clickCount from './ui/clickCount'
 import inputUserName from './ui/inputUserName'
 import sendMoney from './ui/sendMoney'
 import manageForm from './ui/manageForm'
+import memberForm from './ui/memberForm'
 
 export default function Home() {
   let [isShowing, setIsShowing] = useState(true)
   let [, , resetIsShowing] = useTimeoutFn(() => setIsShowing(true), 500)
   const [count,setCount] =useState(0)
-
+  const [activeIndex, setActiveIndex] = useState(0)
+  function Panel(props: {title: string, children: string,isActive: boolean,onshow: any}){
+    return(
+      <section className='panel rounded border-red'>
+        <h5>{props.title}</h5>
+        {props.isActive ? 
+        (<p>{props.children}</p>)
+      :(
+        <button onClick = {props.onshow}>
+          show
+        </button>
+      )
+      }
+      </section>
+    )
+  }
   return (
     <div>
+      {/* 金額表示 */}
+      <p className='p-4'>Work1</p>
+      <div>
+        {sendMoney({})}
+      </div>
+      <p className='p-4'>Work2</p>
+      <p className='p-2'>単一のフォーム</p>
+      <div>
+        {memberForm({})}
+      </div>
+      <p className='p-2'>管理可能なフォーム</p>
+      <div>
+        {manageForm({})}
+      </div>
+      <p className='p-1'>manage State</p>
+      <p className='p-4'>フリースペース</p>
+      {/*  */}
+      {/* manage State */}
+      {/*  */}
+      <p className='p-8'>Almaty, Kazakhstan</p>
+      <Panel 
+      title='About'
+      isActive={activeIndex === 0}
+      onshow={()=>setActiveIndex(0)}
+      >
+      With a population of about 2 million, Almaty is Kazakhstan's largest city. 
+      </Panel>
+      <Panel 
+      title='Etymology'
+      isActive={activeIndex === 1}
+      onshow={()=>setActiveIndex(1)}
+      >
+      The name comes from алма, the Kazakh word for "apple"
+      </Panel>
+      {/*  */}
+      {/*  */}
+      {/*  */}
       <div className="flex p-6 bg-sky-600">
         <div className='flex-none w-32'>
           <img className="h-12 w-32" src="/next.svg" alt="ChitChat Logo"></img>
@@ -93,15 +146,6 @@ export default function Home() {
       {/* 変化があるたびに変更の値をstateに加える */}
       <div>
         {inputUserName({})}
-      </div>
-      {/* 金額表示 */}
-      <p className='p-4'>Work1</p>
-      <div>
-        {sendMoney({})}
-      </div>
-      <p className='p-4'>Work2</p>
-      <div>
-        {manageForm({})}
       </div>
     </div>
   </div>
