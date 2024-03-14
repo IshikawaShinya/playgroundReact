@@ -2,13 +2,13 @@ import { useState } from 'react'
 import memberForm  from './memberForm'
 
 export default function manageForm(props: {}) {
-    const [numberForm,setNumberForm] =useState([0])
+    const [numberForm,setNumberForm] =useState([false])
     const[inputdisabled,setInputdisabled] = useState(false)
     // const [inputdisabled2,setInputdisabled2] = useState([false])
     let text = 'write member name'   
     const addForm = () =>{
         let copyNumberForm = [...numberForm]
-        copyNumberForm.push(0)
+        copyNumberForm.push(false)
         setNumberForm(copyNumberForm)
     }
     const reduceForm = () =>{
@@ -16,6 +16,28 @@ export default function manageForm(props: {}) {
         copyNumberForm.splice(-1,1)
         setNumberForm(copyNumberForm)
     }
+    // 配列の要素の変更
+    const completeForm = (index:number) =>{
+        let copyNumberForm = numberForm.map((value,i)=>{
+            if(i===index){
+                return true
+            }else{
+                return value
+            }
+        })
+        return setNumberForm(copyNumberForm)
+    }
+    const editForm = (index:number) => {
+        let copyNumberForm = numberForm.map((value,i) => {
+            if(i===index){
+                return false
+            }else{
+                return value
+            }
+        })
+        setNumberForm(copyNumberForm)
+    }
+
 
     return(
         // 
@@ -38,12 +60,39 @@ export default function manageForm(props: {}) {
             >
                 -
             </button>
+            {/* 動作とプログラムを図示して結びつけよう。 */}
+
             <ul>
-                {Array.from(numberForm,()=>
+                {numberForm.map((value,index)=>(
+                    <li key={index}>
+                        <div>
+                            <button
+                            className = 'rounded bg-white h-5 w-10 text-black'
+                            onClick={()=>{completeForm(index)}}
+                        
+                            >
+                                完了
+                            </button>
+                            <button
+                            className = 'rounded bg-white h-5 w-10 text-black'
+                            onClick={()=>{editForm(index)}}
+                            >
+                                修正
+                            </button>
+                            <input
+                            placeholder = 'write money'
+                            className = 'text-black bg-white'
+                            disabled = {numberForm[index]}
+                            //   onChange = {}
+                            //   value = {}
+                            >
+                            </input>
+                        </div>
+                    </li>
+                ))}
+                {/* {Array.from(numberForm,()=>
                     <li>
                         <div>
-                            {/* {memberForm({})} */}
-                            {/* ここでpropsとか使ったら、格好良くない？言われたルール通りの内容じゃない？ */}
                             <button
                             className = 'rounded bg-white h-5 w-10 text-black'
                             onClick={()=>{setInputdisabled(true)}}
@@ -68,7 +117,7 @@ export default function manageForm(props: {}) {
                         </div>
                     </li>
                 )
-                }
+                } */}
             </ul>
             
             {/* <p>{Array.from(text).map{(tx)=>{"¥"+tx}}}</p> */}
