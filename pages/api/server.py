@@ -29,7 +29,7 @@ async def mailreceive(mail:User):
     print(mail.mail)
     if(mail.mail == ""):
         return {"res":"empty"} 
-    elif(mail.mail == "a"):
+    elif(mail.mail == "ishikawa"):
         return {"res":"success"}
     elif(mail != "ishikawa"):
         return {"res":"wrong mail"}

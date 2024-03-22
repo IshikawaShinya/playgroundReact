@@ -15,13 +15,10 @@ export default function Home() {
   const [message, setMessage] = useState('')
   const [mail,setMail] = useState('')
   const [password,setPassword] = useState('')
+  const [alertMessage,setAlertMessage] = useState<string>('')
 
-  //APIから'Hello World'を取得する
-  useEffect(() =>{
-    fetch('http://localhost:8000/')
-    .then(response => response.json())
-    .then(data => setMessage(data.message))
-  },[])
+  //マウンティングするときのみ呼ばれる
+  useEffect(() =>{},[])
 
   const changeText = (eventValue:string) => {
     setMail(eventValue)
@@ -38,8 +35,27 @@ export default function Home() {
       body:JSON.stringify(body)
   })
     .then(response => response.json())
-    .then(data => setMessage(data.res))
-  }
+    .then(data => {
+      setMessage(data.res)
+      console.log(data.res)
+      switch (String(data.res)){
+        case 'empty':
+          setAlertMessage('メールを入力してください')
+          break
+        case "success":
+          setAlertMessage('ログイン成功')
+          break
+        case "wrong mail":
+          setAlertMessage('登録したログイン名と異なります')
+          break
+        default :
+          setAlertMessage('読み込み完了')
+          break
+      }
+      // if (String(data.res) === 'empty')
+      //   console.log("if成功")
+    })
+    }
   //APIに''を取得する
   return (
     <div className="flex flex-col items-center py-16">
@@ -74,6 +90,9 @@ export default function Home() {
         >
           ログイン
         </button>
+        <div className='text-white'>
+          {alertMessage}
+        </div>
       </div>
       {/* WORK3 */}
       {/* API */}

@@ -39,8 +39,8 @@ export default function manageForm(props: {}) {
         setNumberForm(copyNumberForm)
     }
 
-
-
+    
+    
     return(
         // 
         // complete：プラスボタンを押したらフォームが増え,削除ボタンを押すとフォームが消える.
