@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import memberForm  from './memberForm'
 
 export default function manageForm(props: {}) {
+
     const [numberForm,setNumberForm] =useState([false])
     const[inputdisabled,setInputdisabled] = useState(false)
     // const [inputdisabled2,setInputdisabled2] = useState([false])
@@ -37,6 +38,7 @@ export default function manageForm(props: {}) {
         })
         setNumberForm(copyNumberForm)
     }
+
 
 
     return(

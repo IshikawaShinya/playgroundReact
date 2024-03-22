@@ -1,47 +1,86 @@
 "use client"
 import { Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useState,useEffect } from 'react'
 import { useTimeoutFn } from 'react-use'
 import clickCount from './ui/clickCount' 
 import inputUserName from './ui/inputUserName'
 import sendMoney from './ui/sendMoney'
 import manageForm from './ui/manageForm'
-import memberForm from './ui/memberForm'
 
 // Stateの配列への追加
 let nextId = 0;
 
 export default function Home() {
-  let [isShowing, setIsShowing] = useState(true)
-  let [, , resetIsShowing] = useTimeoutFn(() => setIsShowing(true), 500)
-  const [count,setCount] =useState(0)
-  const [activeIndex, setActiveIndex] = useState(0)
-  function Panel(props: {title: string, children: string,isActive: boolean,onshow: any}){
-    return(
-      <section className='panel rounded border-red'>
-        <h5>{props.title}</h5>
-        {props.isActive ? 
-        (<p>{props.children}</p>)
-      :(
-        <button onClick = {props.onshow}>
-          show
-        </button>
-      )
-      }
-      </section>
-    )
+  //Work3 REST API
+  const [message, setMessage] = useState('')
+  const [mail,setMail] = useState('')
+  const [password,setPassword] = useState('')
+
+  //APIから'Hello World'を取得する
+  useEffect(() =>{
+    fetch('http://localhost:8000/')
+    .then(response => response.json())
+    .then(data => setMessage(data.message))
+  },[])
+
+  const changeText = (eventValue:string) => {
+    setMail(eventValue)
   }
-  // Stateの配列への追加
-  const [name, setName] = useState('');
-  const [artists, setArtists] = useState([{id:0,name:''}]);
+  const pushLoginButton = () => {
+    const body = {
+      mail:mail
+    }
+    fetch('http://localhost:8000/',{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(body)
+  })
+    .then(response => response.json())
+    .then(data => setMessage(data.res))
+  }
+  //APIに''を取得する
   return (
     <div className="flex flex-col items-center py-16">
+
+      {/* Loginとsignup機能 */}
+      {/* 入力画面。 */}
+      {/* ログイン画面の一連の流れ
+      入力。ログイン */}
+      {/* バックエンドに渡す。
+      バックエンドから帰ってくる。とりあえず。 */}
+      {/* ログイン判定？ホーム画面遷移:エラー文書き出し */}
+      {/* signUp機能 */}
+      <p className='p-4'>Work4</p>
+      <div className='flex flex-col'>
+        <input
+        placeholder='mail'
+        className='text-black'
+        onChange={(e)=>changeText(e.target.value)}
+        value={mail}
+        >
+        </input>
+        <input
+        placeholder='password'
+        className='text-black'
+        onChange={(e)=>setPassword(e.target.value)}
+        value={password}
+        >
+        </input>
+        <button
+        className='rounded bg-white h-5 w-15 text-black'
+        onClick={pushLoginButton}
+        >
+          ログイン
+        </button>
+      </div>
+      {/* WORK3 */}
+      {/* API */}
+      <p className='p-4'>Work3</p>
+      <p>{message}</p>
+  
       <p className='p-4'>Work2</p>
-      {/* <p className='p-2'>単一のフォーム</p>
-      <div>
-        {memberForm({})}
-      </div> */}
-      {/* <p className='p-2'>管理可能なフォーム</p> */}
       <div>
         {manageForm({})}
       </div>
