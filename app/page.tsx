@@ -1,15 +1,18 @@
 "use client"
 import { Transition } from '@headlessui/react'
-import { Fragment, useState,useEffect } from 'react'
+import { useState } from 'react'
 import { useTimeoutFn } from 'react-use'
 import clickCount from './ui/clickCount' 
 import inputUserName from './ui/inputUserName'
 import sendMoney from './ui/sendMoney'
 import manageForm from './ui/manageForm'
-
+import Link from 'next/link'
 // Stateの配列への追加
 let nextId = 0;
 
+const navigation =[
+  {name:'',href:'/pages'},
+]
 export default function Home() {
   //Work3 REST API
   const [message, setMessage] = useState('')
@@ -17,15 +20,10 @@ export default function Home() {
   const [password,setPassword] = useState('')
   const [alertMessage,setAlertMessage] = useState<string>('')
 
-  //マウンティングするときのみ呼ばれる
-  useEffect(() =>{},[])
-
-  const changeText = (eventValue:string) => {
-    setMail(eventValue)
-  }
   const pushLoginButton = () => {
     const body = {
       mail:mail
+      ,password:password
     }
     fetch('http://localhost:8000/',{
       method:"POST",
@@ -70,13 +68,23 @@ export default function Home() {
       {/* signUp機能 */}
       <p className='p-4'>Work4</p>
       <div className='flex flex-col'>
+        <label className='text-white'>email address</label>
         <input
         placeholder='mail'
         className='text-black'
-        onChange={(e)=>changeText(e.target.value)}
+        onChange={(e)=>setMail(e.target.value)}
         value={mail}
         >
         </input>
+        <label  className='text-white'>password</label>
+        <div>
+          <Link
+          href={navigation[0].href}
+          className="text-white"
+          >
+            Password Forgot?
+          </Link>
+        </div>
         <input
         placeholder='password'
         className='text-black'

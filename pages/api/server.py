@@ -7,6 +7,7 @@ app = FastAPI()
 
 class User(BaseModel):
     mail: str
+    password: str
 # CORSミドルウェアの設定
 app.add_middleware(
     CORSMiddleware,
@@ -27,9 +28,10 @@ async def redirect():
 @app.post("/")
 async def mailreceive(mail:User):
     print(mail.mail)
+    print(mail.password)
     if(mail.mail == ""):
         return {"res":"empty"} 
-    elif(mail.mail == "ishikawa"):
+    elif(mail.mail == "ishikawa" and mail.password == "ishikawa"):
         return {"res":"success"}
     elif(mail != "ishikawa"):
         return {"res":"wrong mail"}
