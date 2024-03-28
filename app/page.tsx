@@ -10,9 +10,10 @@ import Link from 'next/link'
 // Stateの配列への追加
 let nextId = 0;
 
-const navigation =[
-  {name:'',href:'/pages'},
-]
+const navigation ={
+  register:{href:'/pages/register'},
+  loginsuccess:{href:'/pages/loginSuccess'}
+}
 export default function Home() {
   //Work3 REST API
   const [message, setMessage] = useState('')
@@ -79,7 +80,7 @@ export default function Home() {
         <label  className='text-white'>password</label>
         <div>
           <Link
-          href={navigation[0].href}
+          href={navigation.register.href}
           className="text-white"
           >
             Password Forgot?
@@ -96,7 +97,12 @@ export default function Home() {
         className='rounded bg-white h-5 w-15 text-black'
         onClick={pushLoginButton}
         >
-          ログイン
+          <Link
+          href={navigation.loginsuccess.href}
+          className="text-black"
+          >
+            ログイン
+          </Link>
         </button>
         <div className='text-white'>
           {alertMessage}
