@@ -12,7 +12,8 @@ let nextId = 0;
 
 const navigation ={
   register:{href:'/pages/register'},
-  loginsuccess:{href:'/pages/loginSuccess'}
+  loginsuccess:{href:'/pages/loginSuccess'},
+  passwordForgot:{href:'/pages/passwordForgot'}
 }
 export default function Home() {
   //Work3 REST API
@@ -80,7 +81,7 @@ export default function Home() {
         <label  className='text-white'>password</label>
         <div>
           <Link
-          href={navigation.register.href}
+          href={navigation.passwordForgot.href}
           className="text-white"
           >
             Password Forgot?
@@ -106,6 +107,14 @@ export default function Home() {
         </button>
         <div className='text-white'>
           {alertMessage}
+        </div>
+        <div className='items-right'>
+        <Link
+          href={navigation.register.href}
+          className="text-white"
+          >
+            アカウントを持っていない方はこちら。新規登録
+          </Link>
         </div>
       </div>
       {/* WORK3 */}
