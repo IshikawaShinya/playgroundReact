@@ -78,14 +78,16 @@ export default function Home() {
         value={mail}
         >
         </input>
-        <label  className='text-white'>password</label>
-        <div>
-          <Link
-          href={navigation.passwordForgot.href}
-          className="text-white"
-          >
-            Password Forgot?
-          </Link>
+        <div className='flex flex-row justfy-center items-center'>
+          <label  className='text-white'>password</label>
+          <div>
+            <Link
+            href={navigation.passwordForgot.href}
+            className="ms-32 text-white"
+            >
+              Password Forgot?
+            </Link>
+          </div>
         </div>
         <input
         placeholder='password'
