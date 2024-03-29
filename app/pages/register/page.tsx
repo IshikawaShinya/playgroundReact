@@ -3,7 +3,7 @@ export default function Register() {
 
     return (
         <div className="p-16 text-white">passwordForgot</div>
-        
+
         // <section className="h-screen">
         //     <div className="h-full">
         //         <div className="flex h-full flex-wrap items-center justify-center">

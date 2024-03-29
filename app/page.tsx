@@ -7,6 +7,7 @@ import inputUserName from './ui/inputUserName'
 import sendMoney from './ui/sendMoney'
 import manageForm from './ui/manageForm'
 import Link from 'next/link'
+import { useRouter } from "next/navigation"
 // Stateの配列への追加
 let nextId = 0;
 
@@ -21,6 +22,9 @@ export default function Home() {
   const [mail,setMail] = useState('')
   const [password,setPassword] = useState('')
   const [alertMessage,setAlertMessage] = useState<string>('')
+  const router = useRouter();
+
+  console.log(router)
 
   const pushLoginButton = () => {
     const body = {
@@ -33,7 +37,7 @@ export default function Home() {
         "Content-Type":"application/json"
       },
       body:JSON.stringify(body)
-  })
+    })
     .then(response => response.json())
     .then(data => {
       setMessage(data.res)
@@ -43,7 +47,8 @@ export default function Home() {
           setAlertMessage('メールを入力してください')
           break
         case "success":
-          setAlertMessage('ログイン成功')
+          router.push(navigation.loginsuccess.href)
+          console.log('ログイン成功')
           break
         case "wrong mail":
           setAlertMessage('登録したログイン名と異なります')
@@ -52,10 +57,8 @@ export default function Home() {
           setAlertMessage('読み込み完了')
           break
       }
-      // if (String(data.res) === 'empty')
-      //   console.log("if成功")
     })
-    }
+  }
   //APIに''を取得する
   return (
     <div className="flex flex-col items-center py-16">
@@ -94,18 +97,15 @@ export default function Home() {
         className='text-black'
         onChange={(e)=>setPassword(e.target.value)}
         value={password}
+        type='password'
         >
         </input>
         <button
         className='rounded bg-white h-5 w-15 text-black'
         onClick={pushLoginButton}
         >
-          <Link
-          href={navigation.loginsuccess.href}
-          className="text-black"
-          >
+          {/* ログイン成功の時だけ画面遷移する。 */}
             ログイン
-          </Link>
         </button>
         <div className='text-white'>
           {alertMessage}
