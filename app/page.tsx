@@ -28,10 +28,10 @@ export default function Home() {
 
   const pushLoginButton = () => {
     const body = {
-      mail:mail
-      ,password:password
+      email:mail,
+      password:password
     }
-    fetch('http://localhost:8000/',{
+    fetch('http://localhost:8000/signin',{
       method:"POST",
       headers:{
         "Content-Type":"application/json"
@@ -59,20 +59,19 @@ export default function Home() {
       }
     })
   }
+
+  // const test =()=>{
+  //   const body = {
+  //     user_id:1,
+  //     item:,
+  //     db:
+  //   }
+  // }
   //APIに''を取得する
   return (
     <div className="flex flex-col items-center py-16">
-
-      {/* Loginとsignup機能 */}
-      {/* 入力画面。 */}
-      {/* ログイン画面の一連の流れ
-      入力。ログイン */}
-      {/* バックエンドに渡す。
-      バックエンドから帰ってくる。とりあえず。 */}
-      {/* ログイン判定？ホーム画面遷移:エラー文書き出し */}
-      {/* signUp機能 */}
-      <p className='p-4'>Work4</p>
-      <div className='flex flex-col'>
+      <div className='flex flex-col w-96 '>
+        <p className='p-4 center'>Work4</p>
         <label className='text-white'>email address</label>
         <input
         placeholder='mail'
@@ -81,25 +80,30 @@ export default function Home() {
         value={mail}
         >
         </input>
-        <div className='flex flex-row justfy-center items-center'>
-          <label  className='text-white'>password</label>
-          <div>
-            <Link
-            href={navigation.passwordForgot.href}
-            className="ms-32 text-white"
-            >
-              Password Forgot?
-            </Link>
+        <div className='flex flex-col w-max'>
+          <div className='flex-row justfy-center items-center'>
+            <div>
+            <label  className='text-white'>password</label>
+            </div>
+            <div className='right-0'>
+              <Link
+              href={navigation.passwordForgot.href}
+              className="text-white"
+              >
+                Password Forgot?
+              </Link>
+            </div>
           </div>
+
+          <input className='text-black'
+          placeholder='password'
+          onChange={(e)=>setPassword(e.target.value)}
+          value={password}
+          type='password'
+          >
+          </input>
         </div>
-        <input
-        placeholder='password'
-        className='text-black'
-        onChange={(e)=>setPassword(e.target.value)}
-        value={password}
-        type='password'
-        >
-        </input>
+
         <button
         className='rounded bg-white h-5 w-15 text-black'
         onClick={pushLoginButton}

@@ -1,0 +1,1 @@
+/Users/shinya/Library/Python/3.9/bin/uvicorn server:app --reload 

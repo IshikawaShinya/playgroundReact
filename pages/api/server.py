@@ -21,9 +21,11 @@ app.add_middleware(
 async def root():
     return RedirectResponse(url="http://localhost:8000/new")
 
-@app.get("/new")
-async def redirect():
-    return {"message":"OK"}
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+@app.get("/new/")
+async def redirect(skip : int = 0, limit : int = 10):
+    return fake_items_db[skip : skip + limit]
 
 @app.post("/")
 async def mailreceive(mail:User):

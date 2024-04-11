@@ -1,8 +1,71 @@
+"use client"
 import Link from 'next/link'
+import { useState } from 'react'
 export default function Register() {
 
+    const [email, setEmail] = useState('')
+    const [password,setPassword] = useState('')
+    const post =()=>{
+        const body ={
+            email:email,
+            password:password
+        }
+        fetch('http://localhost:8000/signup',{
+            method:"POST",
+            headers:{
+              "Content-Type":"application/json"
+            },
+            body:JSON.stringify(body)
+          })
+    }
+
+    const get =()=>{
+        fetch('http://localhost:8000/users/',{
+            method:"GET",
+            headers:{
+              "Content-Type":"application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
+    }
     return (
-        <div className="p-16 text-white">passwordForgot</div>
+        <div className='flex flex-col items-center py-16'>            
+            <div className="p-16 text-white">新規登録</div>
+            <label className='text-white'>email</label>
+            <input
+            placeholder='mail'
+            className='text-black'
+            onChange={(e)=>setEmail(e.target.value)}
+            value={email}
+            type='email'
+            >
+            </input>
+            <div className='flex flex-row justfy-center items-center'>
+                <label className='text-white'>password</label>
+            </div>
+            <input
+            placeholder='password'
+            className='text-black'
+            onChange={(e)=>setPassword(e.target.value)}
+            value={password}
+            type='password'
+            >
+            </input>
+            <button
+            className='rounded bg-white h-5 w-15 text-black'
+            onClick={post}
+            >
+                登録
+            </button>
+            <button
+            onClick={get}
+            >
+            get
+            </button>
+        </div>
 
         // <section className="h-screen">
         //     <div className="h-full">
