@@ -2,6 +2,8 @@ from pydantic import BaseModel
 from typing import Optional
 
 
+class Message(BaseModel):
+    message: str
 class ItemBase(BaseModel):
     title: str
     description: Optional[str] = None
@@ -29,3 +31,5 @@ class User(UserBase):
     items: list[Item] = []
     class Config:
         orm_mode = True
+
+

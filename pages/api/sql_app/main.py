@@ -24,6 +24,14 @@ def get_db():
     finally:
         db.close()
 
+def flag_login(db,email, password):
+    if (crud.get_user_by_email(db, email) == None):
+        return False
+    elif (crud.get_user_by_email(db, email).hashed_password == password):
+        return True
+    else:#emailが登録されているが、passwordが間違っている
+        return False
+
 ##usersをsignupに変更
 @app.post("/signup/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
@@ -32,14 +40,19 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Email already registered")
     return crud.create_user(db=db, user=user)
 
-@app.post("/signin/",response_model=schemas.User)
+@app.post("/signin/")
 def signin_user(user:schemas.UserCreate, db: Session = Depends(get_db)):
     email = user.email
     password = user.password + "notreallyhashed"
-    print(email)
-    if (crud.get_user_by_email(db, email).hashed_password == password):
-        return crud.get_user_by_email(db, email)
-    raise HTTPException(status_code=400, detail="wrong email or password")
+    if (email == "" or password == "notreallyhashed"):
+        return {"res":"Email or Password is empty"}
+    # この条件を満たすときにTrueを返す, それ以外はFalseを返す
+    # elif (crud.get_user_by_email(db, email).hashed_password == password):
+    elif (flag_login(db,email,password) == True):
+        return {"res":"login success"}
+    else:
+        return {"res":"wrong email or password"}
+    # raise HTTPException(status_code=400, detail="wrong email or password")
     # return {"res":"everything is fine"} 
     
     # if (email == "" or password == ""):
